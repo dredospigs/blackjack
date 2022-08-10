@@ -1,0 +1,148 @@
+<!-- panel -->      
+<div ng-hide="isPlaying" class="panelContent">
+    <button type="button" class="btn btn-hit btn-lg hbtn bbb msn" ng-click="newDeck()">Novo Jogo</button> 
+</div> 
+<div class="blockUser" ng-hide="isPlaying"></div>
+
+<!-- contentScreen -->
+<div>
+    <p class="text-white fs-2 text-center">
+        <i class="fa-solid fa-robot"></i>
+        Pontuação: {{botPoints}}
+    </p>
+    <div class="row g-3 mx-6">
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[0] != null" height="100%" width="100%" ng-src="{{cartasBot[0]}}">
+            </div>
+        </div>  
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[1] != null" height="100%" width="100%" ng-src="{{cartasBot[1]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[2] != null" height="100%" width="100%" ng-src="{{cartasBot[2]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[3] != null" height="100%" width="100%" ng-src="{{cartasBot[3]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[4] != null" height="100%" width="100%" ng-src="{{cartasBot[4]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartasBot[5] != null" height="100%" width="100%" ng-src="{{cartasBot[5]}}">
+            </div>
+        </div>                         
+    </div>
+    <div class="text-center my-2 msn" >
+        <img height="10%" width="15%" src="./img/backCard.png">
+    </div>
+    <div class="row g-3 mx-6">
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[0] != null" height="100%" width="100%" ng-src="{{cartas[0]}}">
+            </div>
+        </div>  
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[1] != null" height="100%" width="100%" ng-src="{{cartas[1]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[2] != null" height="100%" width="100%" ng-src="{{cartas[2]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[3] != null" height="100%" width="100%" ng-src="{{cartas[3]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[4] != null" height="100%" width="100%" ng-src="{{cartas[4]}}">
+            </div>
+        </div>   
+        <div class="col-md-2">
+            <div class="border rounded cardSize text-center">
+                <img ng-show="cartas[5] != null" height="100%" width="100%" ng-src="{{cartas[5]}}">
+            </div>
+        </div>                         
+    </div>
+    <p class="text-white fs-2 text-center">Sua pontuação: {{points}}</p>
+    <div class="text-center" >
+        <div class="btn-group bg-black" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-hit hbtn btn-lg" ng-disabled="!isPlaying" ng-click="newCard()">
+                <i class="fa-solid fa-diamond"></i>
+                Nova carta
+            </button>
+            <button type="button" class="btn btn-stand hbtn btn-lg" ng-disabled="!isPlaying" ng-click="stop()">
+                Parar
+                <i class="fa-solid fa-ban"></i>
+            </button>
+        </div>
+    </div>   
+</div>
+
+<!-- Modal -->
+<div class="modal fade" ng-show="results" id="resultModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" ng-class="modalHeader">
+                <h5 class="modal-title" id="exampleModalLabel">RESULTADO</h5>
+                <button type="button" ng-click="isPlaying = false" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center" ng-class="modalBody">
+                <div class="fontArchive my-1" style="font-size: 600%">
+                    {{modalResult}}
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-lg" ng-class="modalButton" ng-click="newDeck()">Novo Jogo</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- sideToasts -->
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+<div class="toast-container bottom-0 end-0 p-3" style="position: fixed;">
+    <div class="toast" style="--bs-bg-opacity: .9; background-color: #34eb43" id="sideToastBj" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header hardGreen text-bg-success">
+            <div class="fs-3">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <strong class="ms-2 mt-2 h4">{{toastTitleBj}}</strong>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-dark">
+            {{toastTextBj}}
+        </div>
+    </div>
+</div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+<div class="toast-container bottom-0 end-0 p-3" style="position: fixed;">
+    <div class="toast" style="--bs-bg-opacity: .9; background-color: #c42446" id="sideToastDf" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header hardRed text-bg-danger">
+            <div class="fs-3">
+                <i class="fa-regular fa-circle-xmark"></i>
+            </div>
+                <strong class="ms-2 mt-2 h4">{{toastTitleDf}}</strong>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-white">
+            {{toastTextDf}}
+        </div>
+    </div>
+</div>

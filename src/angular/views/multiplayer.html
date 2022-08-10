@@ -1,0 +1,161 @@
+<!-- panel -->
+<div ng-hide="isPlaying" class="panelContent">
+    <button type="button" class="btn btn-hit btn-lg hbtn bbb msn" ng-click="newDeck()">Novo Jogo</button> 
+</div> 
+<div class="blockUser" ng-hide="isPlaying"></div>
+
+<!-- content -->
+<div>
+    <div class="row">
+        <!-- player1 -->
+        <div class="col mt-5">
+            <div class="text-white fs-5 mt-5 text-center">
+                PLAYER 1
+            </div>
+            <div class="text-white fs-4 text-center mt-2">
+                PONTUAÇÃO
+            </div>
+            <div class="text-white fs-extra text-center mt-1">
+                {{p1Points}}
+            </div>
+            <button type="button" class="btn btn-hit hbtnmulti mt-5" ng-disabled="!isPlaying || out1" ng-click="newCard('p1')">
+                <i class="fa-solid fa-diamond"></i>
+                Nova carta
+            </button>
+            <br>
+            <button type="button" class="btn btn-stand hbtnmulti mt-1" ng-disabled="!isPlaying || out1" ng-click="stop('p1')">
+                <i class="fa-solid fa-ban"></i>
+                Parar
+            </button>
+        </div>
+        <!-- p1Cards  -->
+        <div class="col mt-5">
+            <div class="ms-3">
+                <div class="border rounded cardSizeMulti text-center">
+                    <img ng-show="p1Cards[0] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[0]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p1Cards[1] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[1]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p1Cards[2] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[2]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p1Cards[3] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[3]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p1Cards[4] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[4]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p1Cards[5] != null" class="cardSide" height="100%" width="57%" ng-src="{{p1Cards[5]}}">
+                </div>
+            </div>
+        </div>
+        <!-- middleCard  -->
+        <div class="col">
+            <div class="text-center ms-3 d-flex align-items-center mt-2" style="min-height: 100%;">
+                <img class="cardSide" height="100%" width="90%" src="./img/backCard.png">
+            </div>
+        </div>
+        <!-- p2Cards  -->
+        <div class="col mt-5">
+            <div class="ms-3">
+                <div class="border rounded cardSizeMulti text-center">
+                    <img ng-show="p2Cards[0] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[0]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p2Cards[1] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[1]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p2Cards[2] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[2]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p2Cards[3] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[3]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p2Cards[4] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[4]}}">
+                </div>
+                <div class="border rounded cardSizeMulti text-center mt-2">
+                    <img ng-show="p2Cards[5] != null" class="cardSide" height="100%" width="57%" ng-src="{{p2Cards[5]}}">
+                </div>
+            </div>
+        </div>
+        <!-- player2 -->
+        <div class="col mt-5">
+            <div class="text-white fs-5 mt-5 text-center">
+                PLAYER 2
+            </div>
+            <div class="text-white fs-4 text-center mt-2">
+                PONTUAÇÃO
+            </div>
+            <div class="text-white fs-extra text-center mt-1">
+                {{p2Points}}
+            </div>
+            <button type="button" class="btn btn-hit hbtnmulti mt-5" ng-disabled="!isPlaying || out2" ng-click="newCard('p2')">
+                <i class="fa-solid fa-diamond"></i>
+                Nova carta
+            </button>
+            <br>
+            <button type="button" class="btn btn-stand hbtnmulti mt-1" ng-disabled="!isPlaying || out2" ng-click="stop('p2')">
+                <i class="fa-solid fa-ban"></i>
+                Parar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" ng-show="results" id="resultModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" ng-class="modalHeader">
+                <h5 class="modal-title" id="exampleModalLabel">RESULTADO</h5>
+                <button type="button" ng-click="isPlaying = false" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center" ng-class="modalBody">
+                <div class="fontArchive my-1" style="font-size: 400%">
+                    {{modalResult}}
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-lg" ng-class="modalButton" ng-click="newDeck()">Novo Jogo</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- sideToasts -->
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container bottom-0 end-0 p-3 bottom-0 start-0" style="position: fixed;">
+        <div class="toast" ng-style="toastBody1" id="sideToast1" role="alert" aria-live="assertive" aria-atomic="true">
+            <div ng-class="toastHeader1">
+                <div class="fs-3">
+                    <i ng-class="toastIcon1"></i>
+                </div>
+                <strong class="ms-2 mt-2 h4">{{toastTitle1}}</strong>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-black">
+                {{toastText1}}
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container bottom-0 end-0 p-3" style="position: fixed;">
+        <div class="toast" ng-style="toastBody2" id="sideToast2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div ng-class="toastHeader2">
+                <div class="fs-3">
+                    <i ng-class="toastIcon2"></i>
+                </div>
+                <strong class="ms-2 mt-2 h4">{{toastTitle2}}</strong>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-black">
+                {{toastText2}}
+            </div>
+        </div>
+    </div>
+</div>

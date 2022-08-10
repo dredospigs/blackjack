@@ -1,0 +1,137 @@
+.purpleSide{
+    min-height: 100%;
+    min-width: 7%;
+    max-width: 7%;
+    position: fixed;
+    background-color: #3A0145;
+    padding: 1em;
+}
+.content{
+    position: absolute;
+    min-height: 100%;
+    min-width: 93%;
+    left: 7%;
+    padding: 0.3% 2% 0% 2%;
+}
+.cardSize{
+    min-height: 10em !important;
+    max-height: 10em !important;
+    max-width: 7em !important;
+    padding: 8% 5% 1% 5%;
+}
+.msn{
+    margin-left: -5% !important;
+}
+.mx-6{
+    margin-left: 5em;
+    margin-right: 5em;
+}
+.hbtn{
+    min-width: 15em;
+}
+.btn-hit{
+    background-color: #140e6b !important; 
+    color:#fcf7f8 !important;
+}
+.btn-stand{
+    background-color: #bd0808 !important; 
+    color:#fcf7f8 !important;
+}
+.blockUser{
+    position: fixed;
+    min-height: 101%;
+    margin-top: -10px;
+    right: 0;
+    min-width: 93%;
+    background-color: #585858;
+    opacity: 50%;
+}
+.panelContent{
+    position: absolute !important;
+    z-index: 1000;
+    min-height: 99%;
+    min-width: 93%;
+    text-align: center;
+    margin-left: 1.5%;
+}
+.bbb{    
+    font-family: "Snell Roundhand", cursive;
+    font-size: xx-large;
+    margin-top: 40%;
+}
+@font-face {
+    font-family: archive;
+    src: url(../fonts/Archive-Regular.otf);
+}
+.fontArchive{
+    font-family: archive;
+}
+.empateColor{
+    background-color: #22221d;
+    color: #e4e4e4;
+}
+.empateBdColor{
+    background-color: #8c8d7ed8;
+    color: #0f030d;
+}
+.empateButton{
+    background-color: #8e239c;
+    color:#fcf7f8 !important;
+}
+.derrotaColor{
+    background-color: #720a0a;
+    color: #c8cfd1;
+}
+.derrotaBdColor{
+    background-color: #a50d0de1;
+    color: #e5f5ad;
+}
+.derrotaButton{
+    background-color: #1a1515;
+    color:#fcf7f8 !important;
+}
+.vitoriaColor{
+    background-color: #073103;
+    color: #b9f7ff;
+}
+.vitoriaBdColor{
+    background-color: #38773be0;
+    color: #011214;
+}
+.vitoriaButton{
+    background-color: #32033d;
+    color:#fcf7f8 !important;
+}
+.hardRed{
+    background-color: #720a0a !important;
+}
+.hardGreen{
+    background-color: #0d260f;
+}
+.rulesBook{
+    padding: 8%;
+}
+.ruleTitle{
+    font-family: 'Brush Script MT', cursive;
+}
+.ruleSubtitle{
+    font-family: Garamond, serif
+}
+.hbtnmulti{
+    min-width: 100%
+}
+.fs-extra{
+    font-size: 700%;
+}
+.cardSizeMulti{
+    min-height: 5em !important;
+    max-height: 5em !important;
+    max-width: 7em !important;
+    padding: 1% 4% 5% 4%;
+}
+.cardSide{    
+    transform: rotate(90deg);
+}
+.accountSize{
+    min-height: 30em;
+}
