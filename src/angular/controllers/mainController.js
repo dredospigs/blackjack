@@ -1,15 +1,17 @@
-angular.module('blackjack').controller('mainController', function($scope, $http, $timeout){
+angular.module('blackjack').controller('mainController', function($scope, $http, $timeout, userAPI){
     $scope.botPoints = 0
     $scope.points = 0
     $scope.cartas = []
     $scope.cartasBot = []
     var idDeck
+    var emp = 0, vit = 0, der = 0, bj = 0
     var botCardsValue = []
     var cardsValue = []
     var botCards = 2;
     var botInitialCard, botInitialValue
     var sideToastDf = new bootstrap.Toast(document.getElementById("sideToastDf"))
     var sideToastBj = new bootstrap.Toast(document.getElementById("sideToastBj"))
+    var acvmToast = new bootstrap.Toast(document.getElementById("acvmToast"))
 
     $scope.newDeck = () => {
         $http({
@@ -87,6 +89,10 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
             $scope.modalHeader = 'empateColor'
             $scope.modalBody = 'empateBdColor'
             $scope.modalButton = 'empateButton'
+            emp++
+            der = 0
+            vit = 0
+            saveOnDb(false)
         }
         else{
             if($scope.points > $scope.botPoints){
@@ -95,12 +101,20 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
                     $scope.modalHeader = 'derrotaColor'
                     $scope.modalBody = 'derrotaBdColor'
                     $scope.modalButton = 'derrotaButton'
+                    saveOnDb(false)
+                    der++
+                    emp = 0
+                    vit = 0
                 }
                 else{
                     $scope.modalResult = 'VITÓRIA'
                     $scope.modalHeader = 'vitoriaColor'
                     $scope.modalBody = 'vitoriaBdColor'
                     $scope.modalButton = 'vitoriaButton'
+                    saveOnDb(true)
+                    vit++ 
+                    der = 0
+                    emp = 0
                 }
             }
             else{
@@ -116,12 +130,20 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
                     $scope.modalHeader = 'vitoriaColor'
                     $scope.modalBody = 'vitoriaBdColor'
                     $scope.modalButton = 'vitoriaButton'
+                    saveOnDb(true)
+                    vit++
+                    der = 0
+                    emp = 0
                 }
                 else{
                     $scope.modalResult = 'DERROTA'
                     $scope.modalHeader = 'derrotaColor'
                     $scope.modalBody = 'derrotaBdColor'
                     $scope.modalButton = 'derrotaButton'
+                    saveOnDb(false)
+                    der++
+                    emp = 0
+                    vit = 0
                 }
             }
             
@@ -131,7 +153,8 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
             $scope.results = true
             $('#resultModal').modal('show');
         }, 800);
-        
+
+        checkPoint()
     }
 
     $scope.stop = () => {
@@ -225,6 +248,7 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
             $scope.points += (p1 + p2)
             if(hasAce && $scope.points == 11){
                 $scope.points = 21  
+                bj++
 
                 $scope.toastTitleBj = 'Blackjack!'
                 $scope.toastTextBj = 'Você conseguiu um blackjack!'
@@ -233,7 +257,25 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
                     sideToastBj.hide()
                 }, 1400);   
                 
+                const player = localStorage['player']
+                if(player != ''){
+                    userAPI.readOne(player)
+                    .then((res) => {
+                        const user = res.data[0]
+
+                        if(!user.achievments[1].done){
+                            achievmentsUpdate(user, 1)
+                        }
+
+                        if(!user.achievments[7].done && bj >= 2){
+                            achievmentsUpdate(user, 7)
+                        }
+                    })
+                }
             }  
+            else{
+                bj = 0
+            }
 
             //bot
             $scope.cartasBot.push(res.data.cards[2].images.png)
@@ -248,5 +290,94 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
 
             $scope.botPoints = v1
         })
+    }
+
+    function saveOnDb(result){
+        const player = localStorage['player']
+
+        if(player != ''){
+            userAPI.readOne(player)
+            .then((res) => {
+                const user = res.data[0]
+
+                let v = 0
+                if(result){
+                    v = 1
+                    if(!user.achievments[0].done){
+                        achievmentsUpdate(user, 0)
+                    }
+                }
+
+                const update = {
+                    "matches" : (Number(user.matches) + 1),
+                    "wins" : (Number(user.wins) + v)
+                }
+
+                userAPI.updatePlayer(user._id, update)
+            })
+        }
+    }
+    
+    function achievmentsUpdate(player, code){
+        let acvm = []
+        player.achievments.forEach(achievment => {
+            var obj = {}
+
+            if(achievment === player.achievments[code]){
+                obj = {
+                    "title" : achievment.title,
+                    "desc" : achievment.desc,
+                    "done" : !achievment.done,
+                    "icon" : achievment.icon
+                }
+            }
+            else{
+                obj = {
+                    "title" : achievment.title,
+                    "desc" : achievment.desc,
+                    "done" : achievment.done,
+                    "icon" : achievment.icon
+                }
+            }
+
+            acvm.push(obj)
+        });
+
+        userAPI.updatePlayer(player._id, {"achievments" : acvm})
+        .then(() => {
+            $scope.toastTitleAcvm = player.achievments[code].title
+            $scope.toastTextAcvm = player.achievments[code].desc
+            acvmToast.show()
+        })
+    }
+
+    function checkPoint(){
+        const player = localStorage['player']
+        if(player != ''){
+            userAPI.readOne(player)
+            .then((res) => {
+                const user = res.data[0]
+
+                if(!user.achievments[3].done && emp >= 2){
+                    achievmentsUpdate(user, 3)
+                }
+
+                if(!user.achievments[4].done && der >= 10){
+                    achievmentsUpdate(user, 4)
+                }
+
+                if(!user.achievments[5].done && vit >= 3){
+                    achievmentsUpdate(user, 5)
+                }
+
+                if(!user.achievments[6].done && vit >= 5){
+                    achievmentsUpdate(user, 6)
+                }
+
+                if(!user.achievments[8].done && $scope.points <= 15 && vit != 0){
+                    achievmentsUpdate(user, 8)
+                }
+            })
+        }
     }
 })

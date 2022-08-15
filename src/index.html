@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oie</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./img/icon.ico" />
+    <title>Blackjack!</title>
     <style>
         body{
             background-color: #074718 !important;
@@ -14,9 +15,14 @@
     <script src="../node_modules//angular-route/angular-route.js"></script>
     <script src="./angular/app.js"></script>
     <script src="./angular/config/routeConfig.js"></script>
+    <script src="./angular/config/valueConfig.js"></script>
+    <script src="./angular/services/userService.js"></script>
+    <script src="./angular/filters/ellipsisFilter.js"></script>
     <script src="./angular/controllers/mainController.js"></script>
     <script src="./angular/controllers/multiplayerController.js"></script>
     <script src="./angular/controllers/accountController.js"></script>
+    <script src="./angular/controllers/scoreboardController.js"></script>
+    <script src="./angular/controllers/achievmentsController.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
     <link href="../node_modules/sweetalert2/dist/sweetalert2.min.css">
@@ -39,21 +45,21 @@
             <img class="mt-2 ms-1" width="100%" height="100%" src="./img/battle.png" data-bs-toggle="tooltip"
             data-bs-placement="right" data-bs-title="Multiplayer!">              
         </a>
-        <a href="#">
+        <a href="#!/scoreboard">
             <img class="mt-2 ms-1" width="100%" height="100%" src="./img/score.png" data-bs-toggle="tooltip"
-            data-bs-placement="right" data-bs-title="Em breve!">   
+            data-bs-placement="right" data-bs-title="Placar!">   
         </a> 
-        <a href="#">
+        <a href="#!/achievments">    
             <img class="mt-2 ms-1" width="100%" height="100%" src="./img/trophy.png" data-bs-toggle="tooltip"
-            data-bs-placement="right" data-bs-title="Em breve!">  
+            data-bs-placement="right" data-bs-title="Conquistas!">  
         </a>         
         <a href="#!/rules">
             <img class="mt-2 ms-1" width="100%" height="100%" src="./img/book.png" data-bs-toggle="tooltip"
             data-bs-placement="right" data-bs-title="Regras!"> 
         </a>
-        <a href="#">
+        <a href="#!/account">
             <img class="mt-2 ms-1 personIcon" width="100%" height="80%" src="./img/person.png" data-bs-toggle="tooltip"
-            data-bs-placement="right" data-bs-title="Em breve!">
+            data-bs-placement="right" data-bs-title="Conta!">
         </a>
     </div>
 

@@ -2,6 +2,7 @@
     <div class="row d-flex align-items-center accountSize">
         <div class="col">
           <img src="../../img/icon.png" height="100%" width="90%">
+          <p ng-show="loggedUser" class="text-center accountName">{{loggedUser | ellipsis:20}}</p>
         </div>
         <div class="col">
             <div class="fs-3 text-center fontArchive mb-1">

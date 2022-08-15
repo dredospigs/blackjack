@@ -1,4 +1,4 @@
-angular.module('blackjack').controller('multiplayerController', function($scope, $http, $timeout){        
+angular.module('blackjack').controller('multiplayerController', function($scope, $http, $timeout, userAPI){        
     $scope.p1Cards = []
     $scope.p2Cards = []
     $scope.p1Points = 0
@@ -10,6 +10,7 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
     var idDeck
     var sideToast1 = new bootstrap.Toast(document.getElementById("sideToast1"))
     var sideToast2 = new bootstrap.Toast(document.getElementById("sideToast2"))
+    var acvmToast = new bootstrap.Toast(document.getElementById("acvmToast"))
 
     $scope.newDeck = () => {
         $http({
@@ -115,7 +116,7 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
     }
 
     function checkScore(){
-        if(($scope.p1Points > 21 && $scope.p2Points > 21) || $scope.p1Points == $scope.p2Value){
+        if(($scope.p1Points > 21 && $scope.p2Points > 21) || $scope.p1Points == $scope.p2Points){
             $scope.modalResult = 'EMPATE'
             $scope.modalHeader = 'empateColor'
             $scope.modalBody = 'empateBdColor'
@@ -156,6 +157,18 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
             $scope.results = true
             $('#resultModal').modal('show');
         }, 800);
+
+        const player = localStorage['player']
+        if(player != ''){
+            userAPI.readOne(player)
+            .then((res) => {
+                const user = res.data[0]
+
+                if(!user.achievments[2].done){
+                    achievmentsUpdate(user, 2)
+                }
+            })
+        }
     }
 
     function valueCalculator(value){
@@ -235,6 +248,39 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
                     sideToast2.hide()
                 }, 1700);
             }
+        })
+    }
+
+    function achievmentsUpdate(player, code){
+        let acvm = []
+        player.achievments.forEach(achievment => {
+            var obj = {}
+
+            if(achievment === player.achievments[code]){
+                obj = {
+                    "title" : achievment.title,
+                    "desc" : achievment.desc,
+                    "done" : !achievment.done,
+                    "icon" : achievment.icon
+                }
+            }
+            else{
+                obj = {
+                    "title" : achievment.title,
+                    "desc" : achievment.desc,
+                    "done" : achievment.done,
+                    "icon" : achievment.icon
+                }
+            }
+
+            acvm.push(obj)
+        });
+
+        userAPI.updatePlayer(player._id, {"achievments" : acvm})
+        .then(() => {
+            $scope.toastTitleAcvm = player.achievments[code].title
+            $scope.toastTextAcvm = player.achievments[code].desc
+            acvmToast.show()
         })
     }
 })

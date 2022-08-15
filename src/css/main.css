@@ -135,3 +135,30 @@
 .accountSize{
     min-height: 30em;
 }
+.accountName{
+    margin-left: -10% !important;
+    margin-top: -15% !important
+}
+.loggedAccount{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 15%;
+    min-height: 8%;
+    background-color: #4fbeca;
+}
+.txtPurple{
+    background-color: #2a0931;
+}
+.achievment{
+    min-height:100%; 
+    background-color: #827d7d;
+}
+.notlogged{
+    position: fixed;
+    bottom: 45%;
+    right: 20%;
+    min-width: 15%;
+    min-height: 8%;
+    max-width: 50%;
+}

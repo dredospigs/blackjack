@@ -1,0 +1,62 @@
+<div ng-show="player" class="ruleBook mt-4">
+    <div class="border border-white rounded rounded-3 py-4 px-3 bg-black text-white">
+        <div class="fs-1 text-center ruleTitle">
+            <i class="fa-solid fa-trophy"></i>
+            Conquistas
+        </div>
+        <div ng-repeat="acvm in achievments">
+            <div class="bg-white text-dark p-3 mt-3 rounded-1" style="opacity: .9;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="border-dark text-black py-3 px-1 rounded-1 achievment text-center border">
+                            <i class="{{acvm.icon}}" style="font-size:450%"></i>                            
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="fontArchive fs-2">
+                            {{acvm.title}}
+                        </div>
+                        <p class="fs-6 mt-1">
+                            {{acvm.desc}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        <div ng-repeat="acvm in achievmentsIncomplete">
+            <div class="bg-white text-dark p-3 mt-3 rounded-1" style="opacity: .5;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="border-dark text-black py-3 px-1 rounded-1 achievment text-center border">
+                            <i class="{{acvm.icon}}" style="font-size:450%"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="fontArchive fs-2">
+                            {{acvm.title}}
+                        </div>
+                        <p class="fs-6 mt-1">
+                            {{acvm.desc}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>
+<p></p>
+
+<div ng-hide="player" class="notlogged py-2 px-3 rounded border border-white bg-black text-white text-center">
+    <div class="fs-1 mt-3">
+        <i class="fa-solid fa-user-check"></i>
+    </div>
+    <p class="fs-3 mt-2">Crie uma conta ou faça login para visualizar suas conquistas</p>
+</div>
+
+<div ng-show="player" class="loggedAccount border border-dark border-2 rounded rounded-3 py-3 px-4 mb-2 d-flex 
+    align-items-center me-2">
+    <i class="fa-solid fa-gem fs-2"></i>
+    <div class="ms-2 me-4 fs-5 fontArchive">
+        Logado como <span class="fw-bold fs-4">{{player | ellipsis:20}}</span>
+    </div>
+</div>
