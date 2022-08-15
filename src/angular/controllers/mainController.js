@@ -179,7 +179,7 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
 
             checkScore()
         }
-        else if($scope.botPoints < 16){
+        else if($scope.botPoints < 16 && $scope.botPoints < $scope.points){
             newCardBot()
         } 
         else{
