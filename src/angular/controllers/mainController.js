@@ -1,14 +1,9 @@
 angular.module('blackjack').controller('mainController', function($scope, $http, $timeout, userAPI){
-    $scope.botPoints = 0
-    $scope.points = 0
-    $scope.cartas = []
-    $scope.cartasBot = []
-    var idDeck
-    var emp = 0, vit = 0, der = 0, bj = 0
+    var emp = 0, vit = 0, der = 0, bj = 0, botCards = 2
     var botCardsValue = []
     var cardsValue = []
-    var botCards = 2;
-    var botInitialCard, botInitialValue
+    var botInitialCard, botInitialValue, idDeck
+
     var sideToastDf = new bootstrap.Toast(document.getElementById("sideToastDf"))
     var sideToastBj = new bootstrap.Toast(document.getElementById("sideToastBj"))
     var acvmToast = new bootstrap.Toast(document.getElementById("acvmToast"))
@@ -21,13 +16,7 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
         .then((res) => {
             $scope.isPlaying = true
             idDeck = res.data.deck_id
-            $scope.botPoints = 0
-            $scope.points = 0
-            botCards = 2;
-            $scope.cartas = []
-            $scope.cartasBot = []
-            botCardsValue = []
-            cardsValue = []
+            $scope.reset()
             $('#resultModal').modal('hide');
             inicialCards()
         })
@@ -380,4 +369,15 @@ angular.module('blackjack').controller('mainController', function($scope, $http,
             })
         }
     }
+
+    $scope.reset = function(){
+        $scope.botPoints = 0
+        $scope.points = 0
+        botCards = 2;
+        $scope.cartas = []
+        $scope.cartasBot = []
+        botCardsValue = []
+        cardsValue = []
+    }
+    $scope.reset()
 })

@@ -1,10 +1,4 @@
-angular.module('blackjack').controller('multiplayerController', function($scope, $http, $timeout, userAPI){        
-    $scope.p1Cards = []
-    $scope.p2Cards = []
-    $scope.p1Points = 0
-    $scope.p2Points = 0
-    $scope.out1= false
-    $scope.out2= false
+angular.module('blackjack').controller('multiplayerController', function($scope, $http, $timeout, userAPI){ 
     var p1Value = []
     var p2Value = []
     var idDeck
@@ -20,12 +14,7 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
         .then((res) => {
             $scope.isPlaying = true
             idDeck = res.data.deck_id
-            $scope.p1Cards = []
-            $scope.p2Cards = []
-            $scope.p1Points = 0
-            $scope.p2Points = 0
-            $scope.out1= false
-            $scope.out2= false
+            $scope.reset()
             p1Value = []
             p2Value = []
             $('#resultModal').modal('hide');
@@ -283,4 +272,14 @@ angular.module('blackjack').controller('multiplayerController', function($scope,
             acvmToast.show()
         })
     }
+
+    $scope.reset = function(){
+        $scope.p1Cards = []
+        $scope.p2Cards = []
+        $scope.p1Points = 0
+        $scope.p2Points = 0
+        $scope.out1= false
+        $scope.out2= false
+    }
+    $scope.reset()
 })
